@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-URLS=$(curl -Lso- https://ziglang.org/download/ | egrep -o 'https://.*zig-linux-x86_64.*\.tar\.xz"' | sed 's/.$//')
+URLS=$(curl -Lso- https://ziglang.org/download/ | grep -Eo 'https://ziglang.org/download/[0-9.]*/zig-linux-x86_64-[0-9.]*.tar.xz' | sort | uniq)
 
 url2version() {
   VERSION=$(echo $1 | grep -Po '/(builds|\d+\.\d+\.\d+)/')
